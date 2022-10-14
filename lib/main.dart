@@ -25,7 +25,35 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-  void _pushSaved() {}
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (context) {
+        final tiles = _saved.map(
+          (pair) {
+            return ListTile(
+              title: Text(
+                pair.asPascalCase,
+                style: _biggerFont,
+              ),
+            );
+          },
+        );
+        final divided = tiles.isNotEmpty
+            ? ListTile.divideTiles(
+                context: context,
+                tiles: tiles,
+              ).toList()
+            : <Widget>[];
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Saved Suggestion"),
+          ),
+          body: ListView(children: divided),
+        );
+      }),
+    );
+  }
+
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18);
   final _saved = <WordPair>{};
