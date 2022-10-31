@@ -10,9 +10,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Startup Name Genarator',
-      home: RandomWords(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 2, 47, 46),
+          foregroundColor: Colors.black,
+        ),
+      ),
+      home: const RandomWords(),
     );
   }
 }
@@ -64,6 +70,7 @@ class _RandomWordsState extends State<RandomWords> {
           IconButton(onPressed: _pushSaved, icon: const Icon(Icons.list)),
         ]),
         body: ListView.builder(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(16),
             itemBuilder: (context, i) {
               if (i.isOdd) return const Divider();
